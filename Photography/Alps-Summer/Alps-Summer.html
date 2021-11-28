@@ -1,0 +1,171 @@
+
+<html>
+    <head>
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+    // Change this for each page / each time you add a picture:
+    var imageNo = 23;
+
+    // Create Title
+    var title = document.createElement('div');
+    title.innerHTML = 'hugodrw';
+    title.style.fontFamily = 'futura';
+    document.body.appendChild(title);
+    title.style.position = 'fixed';
+    title.style.top = '0';
+    title.style.left = '0';
+    title.style.color = 'white';
+    title.style.padding = '40px';
+    title.style.fontSize = '40px';
+
+    // Animate title hover
+    title.onmouseover = function() {
+        title.style.opacity  = '0.7';
+    };
+    
+    title.onmouseout = function() {
+        title.style.opacity  = '1';
+    };
+
+    // Go home on click
+    title.addEventListener('click', function(event) {
+        goHome();
+    });
+
+    var column1 = document.createElement('div');
+    column1.style.width = '49.5%';
+    column1.style.float = 'left';
+    document.body.appendChild(column1);
+
+    var column2 = document.createElement('div');
+    column2.style.width = '0.5%';
+    column2.style.float = 'left';
+    document.body.appendChild(column2);
+
+    var column3 = document.createElement('div');
+    column3.style.width = '49.5%';
+    column3.style.float = 'left';
+    document.body.appendChild(column3);
+
+    // Add image function
+    function addImage(i) {
+        var image = document.createElement('img');
+        image.src = i + '.jpg';
+        if(i%2 == 0){
+            column1.appendChild(image);
+        }
+        else{
+            column3.appendChild(image);
+        }
+        
+        image.style.width = '100%';
+        image.style.paddingBottom = '1%';
+    }
+
+    // Go through all images
+    var i = 1;
+    while ( i <= imageNo){
+        addImage(i);
+        i++;
+    }
+
+
+    var square = document.createElement('div');
+    square.style.width = '100%';
+    square.style.height = '100%';
+    square.style.backgroundColor = 'white';
+    column2.appendChild(square);
+
+    column1.style.marginLeft = '0.25%';
+
+
+    /* make a function that copies any element and makes it bigger */
+    function copyAndMakeBigger(element) {
+        // Make background white
+        var whiteSquare = document.createElement('div');
+        whiteSquare.style.backgroundColor = 'white';
+        whiteSquare.style.position = 'absolute';
+        whiteSquare.style.top = '0';
+        whiteSquare.style.left = '0';
+        whiteSquare.style.width = '100%';
+        whiteSquare.style.height = '500%';
+        document.body.appendChild(whiteSquare);
+
+        // Add arrow
+        var arrow = document.createElement('img');
+        arrow.src = 'arrow.png';
+        arrow.style.position = 'absolute';
+        arrow.style.top = '2%';
+        arrow.style.left = '2%';
+        arrow.style.height = '7%';
+        arrow.style.opacity  = '0.5';
+        document.body.appendChild(arrow);
+
+        // Make element bigger
+        var newElement = element.cloneNode(true);
+        document.body.appendChild(newElement);
+        newElement.style.top = '2%';
+        newElement.style.height = '94%' ;
+        newElement.style.width = 'auto';
+        newElement.style.position = 'absolute';
+
+        /* move the image to the centre of the window */
+        newElement.style.left = '50%';
+        newElement.style.top = '50%';
+        newElement.style.transform = 'translate(-50%, -50%)';
+        window.scrollTo(0, 0);
+
+        // Transition
+        newElement.style.opacity = '0';
+        unfade(newElement);
+        arrow.addEventListener('click', function(event) {
+            goBack();
+        });
+
+        // Animate on hover
+        arrow.onmouseover = function() {
+            arrow.style.opacity  = '1';
+        };
+        
+        arrow.onmouseout = function() {
+            arrow.style.opacity  = '0.5';
+        };
+    }
+
+    function unfade(element) {
+        var op = 0.001;  // initial opacity
+        element.style.display = 'block';
+        var timer = setInterval(function () {
+            if (op >= 1){
+                clearInterval(timer);
+            }
+            element.style.opacity = op;
+            element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+            op += op * 0.1;
+        }, 10);
+    }
+
+    // Only applies to images
+    document.body.addEventListener('click', function(event) {
+        if (event.target.tagName == 'IMG'){
+            copyAndMakeBigger(event.target);
+            console.log('Element is an image');
+          }
+    });
+
+
+    
+    function goBack() {
+        window.location = 'Alps-Summer.html';
+    }
+
+    function goHome(){
+        window.location.href = 'https://hugodrw.com/';
+    }
+
+});
+        </script>
+    </head>
+
+</html>
